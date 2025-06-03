@@ -1,0 +1,47 @@
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+
+# Build directories
+x64/
+Debug/
+Release/
+build/
+
+# CMake-generated files (if applicable)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# SDL binary files
+*.dll
+
+# Object files
+*.obj
+*.o
+
+# Library files
+*.lib
+*.a
+*.lo
+*.la
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Logs and databases
+*.log
+
+# Ignore hidden system files
+.DS_Store
+Thumbs.db
+
+# Ignore asset pipeline output (if any)
+assets/bin/
