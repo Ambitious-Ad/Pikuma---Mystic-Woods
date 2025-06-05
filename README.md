@@ -5,9 +5,7 @@ basic game engine design as well.
 
 # A few differences
 - I am using SDL3 instead of SDL2 as used by the original course
-- Replacing using provided game assets with my own, sourced from itch.io
-
-https://pikuma.com/courses/cpp-2d-game-engine-development link to Pikuma's website
+- Replaced provided game assets with my own, sourced from itch.io
 
 # A few things covered by the project
 - basic 2D rendering and input handling

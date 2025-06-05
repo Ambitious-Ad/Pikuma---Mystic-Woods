@@ -1,6 +1,5 @@
 #include "ECS.h"
 #include <vector>
-#include <algorithm>
 
 int Entity::GetId() const
 {
@@ -15,7 +14,7 @@ void System::AddEntityToSystem(Entity entity)
 void System::removeEntityFromSystem(Entity entity)
 {
 	entities.erase(std::remove_if(entities.begin(), entities.end(), [&entity](Entity other){
-		return entity.GetId() == other.GetId();
+		return entity == other;
 		}), entities.end());
 }
 
@@ -27,4 +26,20 @@ std::vector<Entity> System::GetSystemEntities() const
 const Signature& System::GetComponentSignature() const
 {
 	return componentSignature;
+}
+
+Entity Registry::CreateEntity()
+{
+	int entityId;
+
+	entityId = numEntites++;
+
+	Entity entity(entityId);
+	entitiesToBeAdded.insert(entity);
+	return entity;
+}
+
+void Registry::Update()
+{
+
 }

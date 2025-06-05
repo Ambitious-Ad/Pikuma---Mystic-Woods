@@ -2,6 +2,9 @@
 
 #include <bitset>
 #include <vector>
+#include <unordered_map>
+#include <typeindex>
+#include <set>
 
 const unsigned int MAX_COMPONENTS = 32;
 typedef std::bitset<MAX_COMPONENTS> Signature;
@@ -55,8 +58,16 @@ private:
 	std::vector<Entity> entities;
 };
 
+class IPool
+{
+public:
+
+	virtual ~IPool() {}
+
+};
+
 template <typename T>
-class Pool
+class Pool: public IPool
 {
 public:
 	
@@ -65,7 +76,7 @@ public:
 		data.reserve(size);
 	}
 
-	~pool() = default;
+	virtual ~Pool() = default;
 
 	bool isEmpty() const
 	{
@@ -92,6 +103,21 @@ public:
 		data.push_back(object);
 	}
 
+	void Set(int index, T object)
+	{
+		data[index] = object;
+	}
+
+	T& Get(int index)
+	{
+		return static_cast<T&>(data[index]);
+	}
+
+	T& operator [](unsigned int index)
+	{
+		return data[index];
+	}
+
 private:
 	std::vector<T> data;
 };
@@ -100,11 +126,26 @@ class Registry
 {
 public:
 	
+	Registry() = default;
+
+	void Update();
+
+	Entity CreateEntity();
+
+
+
+	void AddEntityToSystem(Entity entity);
 	
+
 
 private:
 	int numEntites = 0;
-	std::vector<Pool*> componentPools;
+	std::vector<IPool*> componentPools;
+	std::vector<Signature> entityComponentSignatures;
+	std::unordered_map<std::type_index, System*> system;
+
+	std::set<Entity> entitiesToBeAdded;
+	std::set<Entity> entitiesToBeKilled;
 };
 
 template <typename TComponent>
